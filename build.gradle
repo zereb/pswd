@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group 'free.zereb'
+version '0.1'
+
+
+repositories {
+    mavenCentral()
+}
+
+
+jar{
+    baseName = 'pswd'
+    manifest {
+            attributes('Main-Class': 'free.zereb.Main')
+        }
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+            configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+        }
+     }
+
+
+dependencies {
+    implementation 'com.h2database:h2:1.4.199'
+}
