@@ -21,8 +21,6 @@ public class AddRecord implements Command {
         String passw = recSc.nextLine();
         System.out.println("Url");
         String url = recSc.nextLine();
-        System.out.println("Tags:");
-        String tags = recSc.nextLine();
 
         Record record = new Record(passw, user, url);
         Main.records.add(Record.insertInDB(record));

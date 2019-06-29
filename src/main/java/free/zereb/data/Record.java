@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Record {
 
     private final String password;
-    private final String username;
+    public final String username;
     public final String url;
 
     public Record(String password, String username, String url) {
@@ -33,10 +33,23 @@ public class Record {
             prep.setString(2, record.username);
             prep.setString(3, record.url);
             prep.execute();
+            System.out.println("Added record: " + record.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return record;
+    }
+
+    public static void removeFromDB(Record record){
+        try (Connection connection = Main.h2.getConnection();
+             PreparedStatement prep = connection.prepareStatement("delete from records where username = ? and url = ?")
+        ){
+            prep.setString(1, record.username);
+            prep.setString(2, record.url);
+            prep.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
 

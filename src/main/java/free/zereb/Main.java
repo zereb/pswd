@@ -1,9 +1,6 @@
 package free.zereb;
 
-import free.zereb.commands.AddRecord;
-import free.zereb.commands.Exit;
-import free.zereb.commands.Help;
-import free.zereb.commands.getRecords;
+import free.zereb.commands.*;
 import free.zereb.data.Record;
 import free.zereb.utils.ArgumentHandler;
 import free.zereb.utils.Command;
@@ -29,6 +26,7 @@ public static H2Connect h2;
         commands.put("exit", new Exit());
         commands.put("help", new Help());
         commands.put("add", new AddRecord());
+        commands.put("rm", new RemoveRecords());
         commands.put("records", new getRecords());
 
         while (true) {

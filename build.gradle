@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'free.zereb'
-version '0.1'
+version ''
 
 
 repositories {
