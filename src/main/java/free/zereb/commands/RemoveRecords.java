@@ -22,13 +22,15 @@ public class RemoveRecords implements Command {
         Scanner recSc = new Scanner(System.in);
         System.out.println("inpud id of record to delete");
         int id = Integer.parseInt(recSc.nextLine());
-        System.out.println("Found these record, remove? [y/n]");
         List<Record> toRemove = Main.records.stream()
                 .filter(record -> record.id == id)
                 .collect(Collectors.toList());
-        toRemove.forEach(System.out::println);
-        if (toRemove.size() < 1)
+        if (toRemove.size() < 1){
+            System.out.println("No record with id: " + id);
             return;
+        }
+        System.out.println("Found these record, remove? [y/n]");
+        toRemove.forEach(System.out::println);
         Scanner scanner = new Scanner(System.in);
         if (scanner.next().equals("y")){
             Main.records.removeAll(toRemove);

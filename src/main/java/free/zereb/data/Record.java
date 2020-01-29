@@ -3,6 +3,7 @@ package free.zereb.data;
 import free.zereb.Main;
 import org.h2.tools.Server;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 public class Record {
 
-    public final int id;
+    public int id;
     private final String password;
     public final String username;
     public final String url;
@@ -27,14 +28,18 @@ public class Record {
 
 
     public String toString(){
-        return id + "    Username:" + username + " Password: " + password + " " + url + "/n" + notes;
+        if (notes.isBlank())
+            return id + "    Username: " + username + " Password: " + password + " " + url;
+        else
+            return id + "    Username: " + username + " Password: " + password + " " + url + " notes: " + notes;
 
     }
 
     public static Record insertInDB(Record record){
         int generatedId = generateId();
+        record.id = generatedId;
         try (Connection connection = Main.h2.getConnection();
-             PreparedStatement prep = connection.prepareStatement("insert into records (password, username, url, notes) values (?,?,?,?)")
+             PreparedStatement prep = connection.prepareStatement("insert into records (id, password, username, url, notes) values (?,?,?,?,?)")
         ){
             prep.setInt(1, generatedId);
             prep.setString(2, record.password);
@@ -85,16 +90,16 @@ public class Record {
 
     public static  int generateId(){
         try (Connection connection = Main.h2.getConnection();
-             PreparedStatement statement = connection.prepareStatement("select id from records by id desc limit 1");
+             PreparedStatement statement = connection.prepareStatement("select id from records order by id desc limit 1");
              ResultSet resultSet = statement.executeQuery();
         ){
-            while (resultSet.next())
-                return resultSet.getInt(1) + 1;
+            while (resultSet.next()){
+                return resultSet.getInt(1) + 1;}
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return -1;
+        return 0;
     }
 }
 
