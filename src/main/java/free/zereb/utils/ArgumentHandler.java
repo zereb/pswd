@@ -17,14 +17,15 @@ public class ArgumentHandler {
             String username = args[1];
             String password = args[2];
             String url = args[3];
-            Record record = new Record(password, username, url);
+            String notes = args[4];
+            Record record = new Record(0, password, username, url, notes);
             Main.records.add(Record.insertInDB(record));
             System.exit(0);
         });
 
         arguments.put("-h", args -> {
-            System.out.println("-add <username> <password> <url>");
-            System.out.println("-rm <username> <url>");
+            System.out.println("-add <username> <password> <url> <notes>");
+            System.out.println("-rm <id>");
             System.out.println("<url> - gets passwords for url");
             System.exit(0);
         });

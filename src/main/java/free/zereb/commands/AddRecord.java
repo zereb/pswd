@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class AddRecord implements Command {
     @Override
     public String getDescription() {
-        return "Adds new record";
+        return "Interactive Adding new record";
     }
 
     @Override
@@ -21,8 +21,10 @@ public class AddRecord implements Command {
         String passw = recSc.nextLine();
         System.out.println("Url");
         String url = recSc.nextLine();
+        System.out.println("Notes");
+        String notes = recSc.nextLine();
 
-        Record record = new Record(passw, user, url);
+        Record record = new Record(0, passw, user, url, notes);
         Main.records.add(Record.insertInDB(record));
 
 

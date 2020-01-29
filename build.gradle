@@ -4,6 +4,7 @@ plugins {
 
 group 'free.zereb'
 version ''
+sourceCompatibility = 11
 
 
 repositories {
@@ -27,4 +28,5 @@ jar{
 
 dependencies {
     implementation 'com.h2database:h2:1.4.199'
+
 }

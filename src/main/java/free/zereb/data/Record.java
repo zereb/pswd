@@ -1,6 +1,7 @@
 package free.zereb.data;
 
 import free.zereb.Main;
+import org.h2.tools.Server;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,28 +11,36 @@ import java.util.ArrayList;
 
 public class Record {
 
+    public final int id;
     private final String password;
     public final String username;
     public final String url;
+    public final String notes;
 
-    public Record(String password, String username, String url) {
+    public Record(int id, String password, String username, String url, String notes) {
+        this.id = id;
         this.password = password;
         this.username = username;
         this.url = url;
+        this.notes = notes;
     }
 
 
     public String toString(){
-        return "Username:" + username + " Password: " + password + " " + url;
+        return id + "    Username:" + username + " Password: " + password + " " + url + "/n" + notes;
+
     }
 
     public static Record insertInDB(Record record){
+        int generatedId = generateId();
         try (Connection connection = Main.h2.getConnection();
-             PreparedStatement prep = connection.prepareStatement("insert into records (password, username, url) values (?,?,?)")
+             PreparedStatement prep = connection.prepareStatement("insert into records (password, username, url, notes) values (?,?,?,?)")
         ){
-            prep.setString(1, record.password);
-            prep.setString(2, record.username);
-            prep.setString(3, record.url);
+            prep.setInt(1, generatedId);
+            prep.setString(2, record.password);
+            prep.setString(3, record.username);
+            prep.setString(4, record.url);
+            prep.setString(5, record.notes);
             prep.execute();
             System.out.println("Added record: " + record.toString());
         } catch (SQLException e) {
@@ -42,10 +51,9 @@ public class Record {
 
     public static void removeFromDB(Record record){
         try (Connection connection = Main.h2.getConnection();
-             PreparedStatement prep = connection.prepareStatement("delete from records where username = ? and url = ?")
+             PreparedStatement prep = connection.prepareStatement("delete from records where id = ?")
         ){
-            prep.setString(1, record.username);
-            prep.setString(2, record.url);
+            prep.setInt(1, record.id);
             prep.execute();
         }catch (SQLException e){
             e.printStackTrace();
@@ -61,10 +69,12 @@ public class Record {
         ){
            while (resultSet.next()){
                records.add(new Record(
-                       resultSet.getString(1),
+                       resultSet.getInt(1),
                        resultSet.getString(2),
-                       resultSet.getString(3)
-               ));
+                       resultSet.getString(3),
+                       resultSet.getString(4),
+                       resultSet.getString(5))
+               );
            }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,4 +82,20 @@ public class Record {
         return records;
     }
 
+
+    public static  int generateId(){
+        try (Connection connection = Main.h2.getConnection();
+             PreparedStatement statement = connection.prepareStatement("select id from records by id desc limit 1");
+             ResultSet resultSet = statement.executeQuery();
+        ){
+            while (resultSet.next())
+                return resultSet.getInt(1) + 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
 }
+
+

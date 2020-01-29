@@ -13,14 +13,13 @@ import java.sql.SQLException;
 public class H2Connect {
 
     private final String JDBC_DRIVER = "org.h2.Driver";
-    private final String DB_URL = "jdbc:h2:~/.config/pswd/pswd";
+//    private final String DB_URL = "jdbc:h2:~/.config/pswd/pswd";
+    private final String DB_URL = "jdbc:h2:" + Main.XDG_CONFIG_HOME + "pswd/pswd";
     private final String USER = "test";
-    private final String PASS = "test";
-    private Server server;
 
     public H2Connect(){
         try {
-            server = Server.createTcpServer("-tcpAllowOthers").start();
+            Server server = Server.createTcpServer("-tcpAllowOthers").start();
             Class.forName(JDBC_DRIVER);
             init();
         }catch (SQLException | ClassNotFoundException e){
@@ -29,7 +28,7 @@ public class H2Connect {
     }
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, USER, PASS);
+        return DriverManager.getConnection(DB_URL, USER, Main.PASS);
     }
 
     private void init(){

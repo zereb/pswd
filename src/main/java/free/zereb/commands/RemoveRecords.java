@@ -14,21 +14,17 @@ public class RemoveRecords implements Command {
 
     @Override
     public String getDescription() {
-        return "Removes records from db";
+        return "Interactive removing records from db";
     }
 
     @Override
     public void run() {
         Scanner recSc = new Scanner(System.in);
-        System.out.println("Username:");
-        String user = recSc.nextLine();
-        System.out.println("Url");
-        String url = recSc.nextLine();
-
-        System.out.println("Found these records, remove? [y/n]");
+        System.out.println("inpud id of record to delete");
+        int id = Integer.parseInt(recSc.nextLine());
+        System.out.println("Found these record, remove? [y/n]");
         List<Record> toRemove = Main.records.stream()
-                .filter(record -> record.url.contains(url))
-                .filter(record -> record.username.equals(user))
+                .filter(record -> record.id == id)
                 .collect(Collectors.toList());
         toRemove.forEach(System.out::println);
         if (toRemove.size() < 1)
