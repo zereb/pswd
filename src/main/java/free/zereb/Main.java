@@ -22,7 +22,7 @@ public static final String XDG_CONFIG_HOME = System.getenv().get("XDG_CONFIG_HOM
 public static String PASS;
     private Main(String[] args) {
         try {
-            PASS = new String(Files.readAllBytes(Paths.get(XDG_CONFIG_HOME+"pswd/.pass")));
+            PASS = new String(Files.readAllBytes(Paths.get(XDG_CONFIG_HOME+"/pswd/.pass")));
         } catch (IOException e) {
             System.out.println(".pass does not exist");
             new CreatePass().run();

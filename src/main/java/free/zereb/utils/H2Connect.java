@@ -14,7 +14,7 @@ public class H2Connect {
 
     private final String JDBC_DRIVER = "org.h2.Driver";
 //    private final String DB_URL = "jdbc:h2:~/.config/pswd/pswd";
-    private final String DB_URL = "jdbc:h2:" + Main.XDG_CONFIG_HOME + "pswd/pswd";
+    private final String DB_URL = "jdbc:h2:" + Main.XDG_CONFIG_HOME + "/pswd/pswd";
     private final String USER = "test";
 
     public H2Connect(){

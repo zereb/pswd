@@ -27,7 +27,7 @@ public class CreatePass implements Command {
         if (scanner.next().equals("y")){
             System.out.println("input password:");
             String password = scanner.next();
-            try(BufferedWriter writer = new BufferedWriter(new FileWriter(Main.XDG_CONFIG_HOME+"pswd/.pass"))){
+            try(BufferedWriter writer = new BufferedWriter(new FileWriter(Main.XDG_CONFIG_HOME+"/pswd/.pass"))){
                 writer.write(password);
             }catch (IOException e){
                 e.printStackTrace();
