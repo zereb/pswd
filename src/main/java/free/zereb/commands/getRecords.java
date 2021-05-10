@@ -1,7 +1,6 @@
 package free.zereb.commands;
 
 import free.zereb.Main;
-import free.zereb.utils.Command;
 
 public class getRecords implements Command {
 

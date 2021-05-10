@@ -3,7 +3,6 @@ package free.zereb.commands;
 
 import free.zereb.Main;
 import free.zereb.data.Record;
-import free.zereb.utils.Command;
 
 import java.util.List;
 import java.util.Scanner;

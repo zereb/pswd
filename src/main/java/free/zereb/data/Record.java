@@ -1,9 +1,7 @@
 package free.zereb.data;
 
 import free.zereb.Main;
-import org.h2.tools.Server;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,9 +27,9 @@ public class Record {
 
     public String toString(){
         if (notes.isBlank())
-            return id + "    Username: " + username + " Password: " + password + " " + url;
+            return id + " Username: " + username + " Password: " + password + " " + url;
         else
-            return id + "    Username: " + username + " Password: " + password + " " + url + " notes: " + notes;
+            return id + " Username: " + username + " Password: " + password + " " + url + " notes: " + notes;
 
     }
 

@@ -1,15 +1,11 @@
 package free.zereb.commands;
 
 import free.zereb.Main;
-import free.zereb.data.Record;
-import free.zereb.utils.Command;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class CreatePass implements Command {
 

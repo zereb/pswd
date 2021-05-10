@@ -1,4 +1,4 @@
-package free.zereb.utils;
+package free.zereb.commands;
 
 public interface Command {
     String getDescription();

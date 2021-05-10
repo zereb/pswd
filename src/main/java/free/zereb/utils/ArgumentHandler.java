@@ -26,6 +26,7 @@ public class ArgumentHandler {
             System.out.println("-add <username> <password> <url>");
             System.out.println("-rm <id>");
             System.out.println("<url> - gets passwords for url");
+            System.out.println("-r print all records");
             System.exit(0);
         });
 
@@ -56,6 +57,11 @@ public class ArgumentHandler {
                     .filter(record -> record.url.contains(url))
                     .collect(Collectors.toList())
                     .forEach(System.out::println);
+            System.exit(0);
+        });
+
+        arguments.put("-r", args -> {
+            Main.records.forEach(System.out::println);
             System.exit(0);
         });
 

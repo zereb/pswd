@@ -1,7 +1,5 @@
 package free.zereb.commands;
 
-import free.zereb.utils.Command;
-
 public class Exit implements Command {
 
     @Override
